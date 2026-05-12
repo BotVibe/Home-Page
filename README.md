@@ -53,47 +53,7 @@ Because the project generates pure static HTML, it can be deployed for free on a
 
 ### Option B: Deployment via GitHub Pages
 
-Since GitHub Pages needs to serve a specific directory, the cleanest way is to use GitHub Actions to build and deploy your site automatically.
+The repository is already fully configured for GitHub Pages via GitHub Actions!
 
 1. Go to your Repository Settings > Pages > **Build and deployment** > Source: **GitHub Actions**.
-2. Create a new file in your project at `.github/workflows/deploy.yml`:
-
-```yaml
-name: Deploy to GitHub Pages
-on:
-  push:
-    branches: ["main"] # Or master
-
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-      - name: Build Project
-        run: npm run build
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: ./dist
-
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
-```
-3. Commit and push. GitHub will build your site and host the `dist/` folder automatically.
+2. Commit and push your code. The included `.github/workflows/deploy.yml` workflow will automatically build your site and host the `dist/` folder.
