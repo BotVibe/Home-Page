@@ -7,7 +7,10 @@
     "social": {
       "linkedin": "https://linkedin.com/in/yourprofile",
       "github": "https://github.com/yourusername",
-      "email": "hello@domain.com"
+      "email": {
+        "user": "hello",
+        "domain": "domain.com"
+      }
     }
   },
   "techStack": {
