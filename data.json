@@ -1,0 +1,104 @@
+{
+  "profile": {
+    "greeting": "hello_world",
+    "title": "Ich bin Full-Stack Webentwickler.",
+    "about": "Ich konzipiere, gestalte und entwickle digitale Produkte. Von skalierbaren E-Commerce Lösungen in Shopify über pixelperfekte Webflow-Seiten bis hin zu komplexen, maßgeschneiderten Web-Apps (Gevibecode). Mein Fokus liegt auf Performance, sauberer Architektur und herausragender User Experience.",
+    "avatar": "https://placehold.co/500x500/161d2f/b6f228?text=AVATAR\\n(Your+Image)&font=monospace",
+    "social": {
+      "linkedin": "https://linkedin.com/in/yourprofile",
+      "github": "https://github.com/yourusername",
+      "email": "hello@domain.com"
+    }
+  },
+  "techStack": {
+    "description": "Mein Werkzeugkasten ist pragmatisch und ergebnisorientiert. Ich wähle die Technologie, die das Problem am elegantesten löst. Egal ob monolithische Shopsysteme oder entkoppelte Micro-Frontends.",
+    "radarLabels": ["Custom Code", "Shopify", "Webflow", "Backend", "Design", "DevOps"],
+    "radarData": [95, 90, 85, 80, 75, 70],
+    "tools": [
+      { "name": "React / Next.js", "color": "var(--lime)" },
+      { "name": "Liquid / Shopify", "color": "#95BF47" },
+      { "name": "Webflow API", "color": "#4353FF" },
+      { "name": "Node.js / Express", "color": "var(--lime)" },
+      { "name": "Tailwind CSS", "color": "gray" },
+      { "name": "PostgreSQL", "color": "gray" }
+    ]
+  },
+  "cv": [
+    {
+      "role": "Senior Full-Stack Developer",
+      "period": "2022 - Present",
+      "company": "TechNova Agency",
+      "description": "Lead Developer für E-Commerce und Corporate Websites. Architekturplanung und Umsetzung von Headless-Shopify Setups. Mentoring von Junior-Entwicklern und Einführung von CI/CD Pipelines."
+    },
+    {
+      "role": "Web Developer",
+      "period": "2019 - 2022",
+      "company": "Digital Creators GmbH",
+      "description": "Fokus auf Webflow-Entwicklung und Custom Integrations. Anbindung von Drittsystemen über APIs und Erstellung dynamischer CMS-Strukturen."
+    },
+    {
+      "role": "Junior Web Developer",
+      "period": "2017 - 2019",
+      "company": "StartUp Inc.",
+      "description": "Frontend-Entwicklung mit React und Plain CSS. Wartung bestehender Codebases und Bugfixing."
+    }
+  ],
+  "projects": {
+    "custom": {
+      "title": "Custom Apps & Tools",
+      "color": "#feff00",
+      "items": [
+        {
+          "title": "Quantum Task Engine",
+          "description": "Verteiltes Aufgabenmanagement. Plain JS, Node.js Backend.",
+          "link": "#",
+          "image": "[IMG_PLACEHOLDER]",
+          "linkText": "VIEW_PROJECT"
+        },
+        {
+          "title": "Design Token Injector",
+          "description": "CLI-Tool zur Laufzeit-Manipulation von CSS-Variablen.",
+          "link": "#",
+          "image": "[IMG_PLACEHOLDER]",
+          "linkText": "VIEW_PROJECT"
+        }
+      ]
+    },
+    "shopify": {
+      "title": "Shopify E-Commerce",
+      "color": "var(--shopify)",
+      "items": [
+        {
+          "title": "Urban Sneaker Store",
+          "description": "Custom Theme Development von Scratch. Fokus auf Pagespeed & Conversion.",
+          "link": "#",
+          "linkText": "VIEW_STORE"
+        },
+        {
+          "title": "BioFood B2B Portal",
+          "description": "Komplexes Shopify Plus Setup mit Wholesale-Logik und ERP-Anbindung.",
+          "link": "#",
+          "linkText": "VIEW_STORE"
+        }
+      ]
+    },
+    "webflow": {
+      "title": "Webflow Corporate",
+      "color": "var(--webflow)",
+      "items": [
+        {
+          "title": "FinTech Startup Landing",
+          "description": "High-End Animationen und komplexes CMS-Setup für News & Careers.",
+          "link": "#",
+          "linkText": "VIEW_SITE"
+        },
+        {
+          "title": "Architekturbüro Portfolio",
+          "description": "Minimalistisches Layout, flüssige Page-Transitions und Bilder-Lazy-Loading.",
+          "link": "#",
+          "linkText": "VIEW_SITE"
+        }
+      ]
+    }
+  }
+}
