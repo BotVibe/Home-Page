@@ -22,3 +22,13 @@ The primary goal of this architecture is to provide the user with a highly conve
 5. **Where to Edit Logic:** If the user wants a new dynamic feature (e.g., calculating a new statistic), modify `build.js` to process the data and inject a new `{{TOKEN}}` into the template.
 6. **Email Obfuscation:** The user's email is split into `user` and `domain` inside `data.json`. `build.js` injects a Javascript event listener into the template that dynamically assembles the `mailto:` link only upon user interaction (hover/click). Do NOT hardcode the email into the HTML to prevent bot spam.
 7. **Deployment:** The project is designed to be deployed by pointing a static hosting service (Coolify, Vercel, Netlify, GitHub Pages) to the `dist/` directory after running `npm run build`.
+
+## Design System: Neo-Brutalism
+
+The portfolio uses a **Neo-Brutalism** (Neobrutalismus) visual style with:
+- **CSS Variables** defined in `:root` — `--accent` (hot pink #FF6B9D), `--accent-alt` (electric blue #4CC9F0), `--accent-yellow` (#FFD166), `--border` (#000), `--shadow` (#000)
+- **Utility classes**: `.neo-card` (thick border + offset shadow + hover lift), `.neo-btn` (button variant), `.neo-border`, `.neo-shadow`
+- **Dark mode** uses `.dark` class on `<body>` with `--bg-dark`, `--card-bg-dark`, `--border-dark`, `--shadow-dark` variants
+- **No blur/glassmorphism/gradients** — all effects are flat, boxy, and high-contrast
+- Project category colors in `data.json` use **hex values** (not CSS variables) for compatibility with inline styles and `color-mix()`
+- `build.js` uses `replaceAll()` instead of `replace()` for tokens that appear multiple times in the template
