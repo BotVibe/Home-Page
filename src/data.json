@@ -3,7 +3,7 @@
     "greeting": "hello_world",
     "title": "Ich bin Full-Stack Webentwickler.",
     "about": "Ich konzipiere, gestalte und entwickle digitale Produkte. Von skalierbaren E-Commerce Lösungen in Shopify über pixelperfekte Webflow-Seiten bis hin zu komplexen, maßgeschneiderten Web-Apps (Gevibecode). Mein Fokus liegt auf Performance, sauberer Architektur und herausragender User Experience.",
-    "avatar": "https://placehold.co/500x500/161d2f/b6f228?text=AVATAR\\n(Your+Image)&font=monospace",
+    "avatar": "https://placehold.co/500x500/FF6B9D/000000?text=AVATAR\\n(Your+Image)&font=monospace",
     "social": {
       "linkedin": "https://linkedin.com/in/yourprofile",
       "github": "https://github.com/yourusername",
@@ -18,12 +18,12 @@
     "radarLabels": ["Custom Code", "Shopify", "Webflow", "Backend", "Design", "DevOps"],
     "radarData": [95, 90, 85, 80, 75, 70],
     "tools": [
-      { "name": "React / Next.js", "color": "var(--lime)" },
-      { "name": "Liquid / Shopify", "color": "#95BF47" },
+      { "name": "React / Next.js", "color": "#FF6B9D" },
+      { "name": "Liquid / Shopify", "color": "#2EC866" },
       { "name": "Webflow API", "color": "#4353FF" },
-      { "name": "Node.js / Express", "color": "var(--lime)" },
-      { "name": "Tailwind CSS", "color": "gray" },
-      { "name": "PostgreSQL", "color": "gray" }
+      { "name": "Node.js / Express", "color": "#4CC9F0" },
+      { "name": "Tailwind CSS", "color": "#FFD166" },
+      { "name": "PostgreSQL", "color": "#A78BFA" }
     ]
   },
   "cv": [
@@ -49,7 +49,7 @@
   "projects": {
     "custom": {
       "title": "Custom Apps & Tools",
-      "color": "#feff00",
+      "color": "#FFD166",
       "items": [
         {
           "title": "Quantum Task Engine",
@@ -69,7 +69,7 @@
     },
     "shopify": {
       "title": "Shopify E-Commerce",
-      "color": "var(--shopify)",
+      "color": "#2EC866",
       "items": [
         {
           "title": "Urban Sneaker Store",
@@ -87,7 +87,7 @@
     },
     "webflow": {
       "title": "Webflow Corporate",
-      "color": "var(--webflow)",
+      "color": "#4353FF",
       "items": [
         {
           "title": "FinTech Startup Landing",

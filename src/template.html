@@ -3,34 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Software Engineer | Personal Terminal</title>
+    <title>Software Engineer | Portfolio</title>
     <meta name="description" content="{{PROFILE_ABOUT}}">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <style>
         :root {
-            --midnight: #0b0f19;
-            --midnight-light: #161d2f;
-            --lime: #b6f228;
-            --lime-hover: #a5dc22;
+            --bg: #FFFBEB;
+            --bg-dark: #1a1a2e;
+            --card-bg: #FFFFFF;
+            --card-bg-dark: #16213e;
+            --accent: #FF6B9D;
+            --accent-alt: #4CC9F0;
+            --accent-yellow: #FFD166;
+            --border: #000000;
+            --border-dark: #e2e8f0;
+            --shadow: #000000;
+            --shadow-dark: #0f0f23;
+            --text: #000000;
+            --text-dark: #FFFBEB;
 
             /* Platform Colors */
-            --shopify: #95BF47;
+            --shopify: #2EC866;
             --webflow: #4353FF;
         }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #ffffff;
-            color: #111827;
-            transition: background-color 0.3s, color 0.3s;
+            background-color: var(--bg);
+            color: var(--text);
             overflow-x: hidden;
         }
 
         .dark {
-            background-color: var(--midnight);
-            color: #f9fafb;
+            background-color: var(--bg-dark);
+            color: var(--text-dark);
         }
 
         .chart-container {
@@ -41,163 +49,92 @@
             height: 300px;
         }
 
-        .bg-midnight-card {
-            background-color: #f3f4f6;
-        }
-
-        .dark .bg-midnight-card {
-            background-color: var(--midnight-light);
-        }
-
-        #bg-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: -1;
-            pointer-events: none;
-        }
-
-        /* Typewriter Animation */
-        .typewriter-text {
-            border-right: 0.15em solid var(--lime);
-            white-space: nowrap;
-            overflow: hidden;
-            font-family: 'Consolas', 'Courier New', monospace;
-            animation: typing 2.5s steps(30, end), blink-caret .75s step-end infinite;
-        }
-
-        @keyframes typing {
-            from {
-                width: 0
-            }
-
-            to {
-                width: 100%
-            }
-        }
-
-        @keyframes blink-caret {
-
-            from,
-            to {
-                border-color: transparent
-            }
-
-            50% {
-                border-color: var(--lime);
-            }
-        }
-
         /* Custom Scrollbar for horizontal strips */
-        .hide-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
         .hide-scrollbar {
             -ms-overflow-style: none;
             scrollbar-width: none;
         }
 
+        /* Neo-Brutal Cards */
+        .neo-card {
+            border: 3px solid var(--border);
+            box-shadow: 5px 5px 0 var(--shadow);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .dark .neo-card {
+            border-color: var(--border-dark);
+            box-shadow: 5px 5px 0 var(--shadow-dark);
+        }
+        .neo-card:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 7px 7px 0 var(--shadow);
+        }
+        .dark .neo-card:hover {
+            box-shadow: 7px 7px 0 var(--shadow-dark);
+        }
+
+        /* Neo-Brutal Buttons */
+        .neo-btn {
+            border: 3px solid var(--border);
+            box-shadow: 4px 4px 0 var(--shadow);
+            font-weight: 800;
+            transition: transform 0.15s, box-shadow 0.15s;
+        }
+        .dark .neo-btn {
+            border-color: var(--border-dark);
+            box-shadow: 4px 4px 0 var(--shadow-dark);
+        }
+        .neo-btn:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0 var(--shadow);
+        }
+        .dark .neo-btn:hover {
+            box-shadow: 6px 6px 0 var(--shadow-dark);
+        }
+        .neo-btn:active {
+            transform: translate(2px, 2px);
+            box-shadow: 0 0 0 var(--shadow);
+        }
+
+        .neo-border {
+            border: 3px solid var(--border);
+        }
+        .dark .neo-border {
+            border-color: var(--border-dark);
+        }
+
+        .neo-shadow {
+            box-shadow: 5px 5px 0 var(--shadow);
+        }
+        .dark .neo-shadow {
+            box-shadow: 5px 5px 0 var(--shadow-dark);
+        }
+
         /* Timeline Nodes */
         .timeline-node {
-            width: 12px;
-            height: 12px;
-            background-color: #ffffff;
-            border: 2px solid var(--lime);
+            width: 16px;
+            height: 16px;
+            background-color: var(--accent);
+            border: 3px solid var(--border);
             position: absolute;
-            left: -7px;
+            left: -9px;
             top: 6px;
         }
-
         .dark .timeline-node {
-            background-color: var(--midnight);
-        }
-
-        .nav-blur {
-            backdrop-filter: blur(12px);
-            background-color: rgba(255, 255, 255, 0.8);
-        }
-
-        .dark .nav-blur {
-            background-color: rgba(11, 15, 25, 0.8);
-        }
-
-        /* Glitch Effect */
-        @keyframes glitch-anim {
-            0% {
-                clip-path: inset(50% 0 50% 0);
-                transform: skew(0.3deg);
-            }
-
-            20% {
-                clip-path: inset(10% 0 90% 0);
-                transform: skew(0.3deg);
-            }
-
-            40% {
-                clip-path: inset(80% 0 10% 0);
-                transform: skew(-0.3deg);
-            }
-
-            60% {
-                clip-path: inset(30% 0 70% 0);
-                transform: skew(0.3deg);
-            }
-
-            80% {
-                clip-path: inset(60% 0 30% 0);
-                transform: skew(-0.3deg);
-            }
-
-            100% {
-                clip-path: inset(50% 0 50% 0);
-                transform: skew(0.3deg);
-            }
-        }
-
-        .glitch-on-hover:hover::before,
-        .glitch-on-hover:hover::after {
-            content: attr(data-text);
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: inherit;
-            z-index: -1;
-        }
-
-        .glitch-on-hover:hover::before {
-            text-shadow: -2px 0 #ff00c1;
-            clip-path: inset(50% 0 50% 0);
-            animation: glitch-anim 0.3s infinite linear alternate-reverse;
-        }
-
-        .glitch-on-hover:hover::after {
-            text-shadow: -2px 0 #00fff9, 2px 2px #ff00c1;
-            clip-path: inset(50% 0 50% 0);
-            animation: glitch-anim 0.3s infinite linear alternate;
-        }
-
-        .glitch-on-hover {
-            position: relative;
+            border-color: var(--border-dark);
         }
     </style>
 </head>
 
 <body class="antialiased dark">
 
-    <canvas id="bg-canvas"></canvas>
-
-    <nav class="fixed top-0 w-full z-50 nav-blur border-b border-gray-200 dark:border-gray-800">
+    <nav class="fixed top-0 w-full z-50 bg-[var(--bg)] dark:bg-[var(--bg-dark)]" style="border-bottom: 3px solid var(--border);">
         <div class="max-w-6xl mx-auto px-6 h-16 flex justify-between items-center">
-            <div class="font-black text-xl tracking-widest italic">USER<span class="text-[var(--lime)]">_</span>PROFILE
-            </div>
+            <div class="font-black text-xl tracking-widest italic">USER<span class="text-[var(--accent)]">.</span>PROFILE</div>
             <button id="themeToggle"
-                class="px-4 py-2 rounded-none bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 font-mono text-xs hover:text-[var(--lime)] transition-colors">
-                <span id="themeLabel">LIGHT MODE</span>
+                class="neo-btn px-4 py-2 bg-[var(--accent-yellow)] text-black font-mono text-xs">
+                <span id="themeLabel">☀ LIGHT MODE</span>
             </button>
         </div>
     </nav>
@@ -206,11 +143,10 @@
 
         <section class="px-6 max-w-6xl mx-auto mb-32 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             <div class="lg:col-span-7">
-                <div id="stats-summary" class="inline-block px-3 py-1 bg-[var(--lime)] text-black text-xs font-bold mb-6 font-mono">> {{STATS_SUMMARY}}</div>
-                <h1 class="text-5xl md:text-7xl font-black mb-6 tracking-tighter typewriter-text"><span id="profile-greeting">{{PROFILE_GREETING}}</span><span
-                        class="text-[var(--lime)]">_</span></h1>
-                <h2 id="profile-title" class="text-2xl font-bold mb-6 opacity-90">{{PROFILE_TITLE}}</h2>
-                <p id="profile-about" class="text-lg opacity-70 leading-relaxed mb-8 max-w-2xl">
+                <div id="stats-summary" class="neo-btn inline-block px-4 py-2 bg-[var(--accent-yellow)] text-black text-xs font-bold mb-6 font-mono">{{STATS_SUMMARY}}</div>
+                <h1 class="text-5xl md:text-7xl font-black mb-6 tracking-tighter"><span id="profile-greeting">{{PROFILE_GREETING}}</span></h1>
+                <h2 id="profile-title" class="text-2xl font-extrabold mb-6">{{PROFILE_TITLE}}</h2>
+                <p id="profile-about" class="text-lg leading-relaxed mb-8 max-w-2xl">
                     {{PROFILE_ABOUT}}
                 </p>
 
@@ -219,29 +155,26 @@
                 </div>
             </div>
             <div class="lg:col-span-5 flex justify-center lg:justify-end">
-                <div class="relative group">
-                    <div
-                        class="absolute -inset-2 bg-[var(--lime)] opacity-20 group-hover:opacity-100 transition-opacity duration-500 blur-lg">
-                    </div>
+                <div class="relative">
+                    <div class="absolute -bottom-3 -right-3 w-64 h-64 md:w-80 md:h-80 bg-[var(--accent)] neo-border"></div>
                     <img id="profile-avatar" src="{{PROFILE_AVATAR}}"
                         alt="Profile Picture"
-                        class="relative z-10 w-64 h-64 md:w-80 md:h-80 object-cover border-2 border-gray-200 dark:border-gray-800 group-hover:border-[var(--lime)] transition-colors duration-500 grayscale group-hover:grayscale-0">
+                        class="relative z-10 w-64 h-64 md:w-80 md:h-80 object-cover neo-border">
                 </div>
             </div>
         </section>
 
         <section class="px-6 max-w-6xl mx-auto mb-32 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div class="bg-midnight-card p-8 border-t-2 border-[var(--lime)] relative">
-                <div
-                    class="absolute top-0 right-0 bg-[var(--lime)] text-black text-[10px] font-mono px-2 py-1 font-bold">
-                    SYSTEM.STATS</div>
-                <div class="chart-container">
+            <div class="neo-card bg-[var(--card-bg)] dark:bg-[var(--card-bg-dark)] p-8 relative">
+                <div class="absolute -top-4 left-6 neo-btn px-3 py-1 bg-[var(--accent-alt)] text-black text-[11px] font-mono font-bold">
+                    SKILLS RADAR</div>
+                <div class="chart-container mt-4">
                     <canvas id="radarChart"></canvas>
                 </div>
             </div>
             <div>
                 <h2 class="text-3xl font-black mb-4 tracking-tighter">TECH_STACK</h2>
-                <p id="tech-description" class="opacity-70 mb-6 leading-relaxed">
+                <p id="tech-description" class="mb-6 leading-relaxed">
                     {{TECH_DESCRIPTION}}
                 </p>
                 <div id="tech-tools" class="grid grid-cols-2 gap-4 font-mono text-sm">
@@ -251,17 +184,17 @@
         </section>
 
         <section class="px-6 max-w-6xl mx-auto mb-32">
-            <h2 class="text-4xl font-black mb-12 tracking-tighter">EXECUTION_LOG <span
-                    class="text-sm font-mono opacity-50 font-normal">/ CV</span></h2>
+            <h2 class="text-4xl font-black mb-12 tracking-tighter">EXPERIENCE <span
+                    class="text-sm font-mono font-normal text-[var(--accent)]">/ CV</span></h2>
 
-            <div id="cv-timeline" class="border-l-2 border-gray-300 dark:border-gray-700 ml-3 space-y-12 pb-4">
+            <div id="cv-timeline" class="ml-3 space-y-12 pb-4" style="border-left: 3px solid var(--border);">
                 {{CV_ITEMS}}
             </div>
         </section>
 
         <div class="mb-12 px-6 max-w-6xl mx-auto">
-            <h2 class="text-4xl font-black tracking-tighter">DEPLOYMENTS <span
-                    class="text-sm font-mono opacity-50 font-normal">/ PROJECTS</span></h2>
+            <h2 class="text-4xl font-black tracking-tighter">PROJECTS <span
+                    class="text-sm font-mono font-normal text-[var(--accent)]">/ WORK</span></h2>
         </div>
 
         <div id="projects-container">
@@ -270,17 +203,14 @@
 
     </main>
 
-    <footer class="bg-gray-100 dark:bg-gray-900 py-12 mt-20 border-t border-gray-200 dark:border-gray-800 text-center">
-        <div class="flex justify-center gap-6 mb-6">
-            <a href="#" class="font-mono text-sm hover:text-[var(--lime)] transition-colors glitch-on-hover"
-                data-text="GITHUB">GITHUB</a>
-            <a href="#" class="font-mono text-sm hover:text-[var(--lime)] transition-colors glitch-on-hover"
-                data-text="LINKEDIN">LINKEDIN</a>
-            <a href="#" class="font-mono text-sm hover:text-[var(--lime)] transition-colors glitch-on-hover"
-                data-text="EMAIL">EMAIL</a>
+    <footer class="bg-[var(--accent)] py-12 mt-20 text-black text-center" style="border-top: 3px solid var(--border);">
+        <div class="flex justify-center gap-4 mb-6">
+            <a href="#" class="neo-btn px-4 py-2 bg-[var(--card-bg)] font-mono text-sm font-bold hover:bg-[var(--accent-yellow)] transition-colors">GITHUB</a>
+            <a href="#" class="neo-btn px-4 py-2 bg-[var(--card-bg)] font-mono text-sm font-bold hover:bg-[var(--accent-yellow)] transition-colors">LINKEDIN</a>
+            <a href="#" class="neo-btn px-4 py-2 bg-[var(--card-bg)] font-mono text-sm font-bold hover:bg-[var(--accent-yellow)] transition-colors">EMAIL</a>
         </div>
-        <p class="text-sm opacity-40 font-mono tracking-tighter">
-            // END OF LINE // SYSTEM ONLINE // &copy; 2024
+        <p class="text-sm font-bold font-mono tracking-tighter">
+            &copy; 2024 — Built with care &amp; code.
         </p>
     </footer>
 
@@ -292,61 +222,9 @@
         themeToggle.addEventListener('click', () => {
             body.classList.toggle('dark');
             const isDark = body.classList.contains('dark');
-            themeLabel.innerText = isDark ? 'LIGHT MODE' : 'DARK MODE';
+            themeLabel.innerText = isDark ? '☀ LIGHT MODE' : '☾ DARK MODE';
             updateRadar(isDark);
         });
-
-        // --- Interactive Grid Canvas ---
-        const canvas = document.getElementById('bg-canvas');
-        const ctxCanvas = canvas.getContext('2d');
-        let width, height;
-        let mouseX = -1000;
-        let mouseY = -1000;
-
-        function resizeCanvas() {
-            width = window.innerWidth;
-            height = window.innerHeight;
-            canvas.width = width;
-            canvas.height = height;
-        }
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
-
-        window.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-        });
-
-        function drawGrid() {
-            ctxCanvas.clearRect(0, 0, width, height);
-            const isDark = document.body.classList.contains('dark');
-
-            const spacing = 35;
-            const radius = 1.5;
-            const dotColor = isDark ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.05)';
-
-            for (let x = 0; x < width; x += spacing) {
-                for (let y = 0; y < height; y += spacing) {
-                    const dx = mouseX - x;
-                    const dy = mouseY - y;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
-                    const maxDist = 250;
-
-                    if (distance < maxDist) {
-                        const intensity = 1 - (distance / maxDist);
-                        ctxCanvas.fillStyle = `rgba(182, 242, 40, ${intensity * 0.9})`;
-                        ctxCanvas.beginPath();
-                        ctxCanvas.arc(x, y, radius + (intensity * 2), 0, Math.PI * 2);
-                        ctxCanvas.fill();
-                    } else {
-                        ctxCanvas.fillStyle = dotColor;
-                        ctxCanvas.fillRect(x, y, radius, radius);
-                    }
-                }
-            }
-            requestAnimationFrame(drawGrid);
-        }
-        drawGrid();
 
         // --- Radar Chart Logic ---
         let radar;
@@ -355,8 +233,8 @@
 
         function initRadar(isDark) {
             const ctx = document.getElementById('radarChart').getContext('2d');
-            const gridColor = isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)';
-            const labelColor = isDark ? '#ffffff' : '#111827';
+            const gridColor = isDark ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.15)';
+            const labelColor = isDark ? '#FFFBEB' : '#000000';
 
             radar = new Chart(ctx, {
                 type: 'radar',
@@ -364,10 +242,10 @@
                     labels: radarLabels,
                     datasets: [{
                         data: radarData,
-                        backgroundColor: 'rgba(182, 242, 40, 0.2)',
-                        borderColor: '#b6f228',
-                        pointBackgroundColor: '#b6f228',
-                        borderWidth: 2
+                        backgroundColor: 'rgba(255, 107, 157, 0.25)',
+                        borderColor: '#FF6B9D',
+                        pointBackgroundColor: '#FF6B9D',
+                        borderWidth: 3
                     }]
                 },
                 options: {
@@ -375,9 +253,9 @@
                     maintainAspectRatio: false,
                     scales: {
                         r: {
-                            grid: { color: gridColor },
-                            angleLines: { color: gridColor },
-                            pointLabels: { color: labelColor, font: { size: 10, family: 'monospace' } },
+                            grid: { color: gridColor, lineWidth: 1.5 },
+                            angleLines: { color: gridColor, lineWidth: 1.5 },
+                            pointLabels: { color: labelColor, font: { size: 11, family: 'monospace', weight: 'bold' } },
                             ticks: { display: false }
                         }
                     },
@@ -388,15 +266,14 @@
 
         function updateRadar(isDark) {
             if (!radar) return;
-            const color = isDark ? '#ffffff' : '#111827';
-            const grid = isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)';
+            const color = isDark ? '#FFFBEB' : '#000000';
+            const grid = isDark ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.15)';
             radar.options.scales.r.pointLabels.color = color;
             radar.options.scales.r.grid.color = grid;
             radar.options.scales.r.angleLines.color = grid;
             radar.update();
         }
 
-        // Initialize as Dark Mode default
         initRadar(true);
 
         // Anti-Spam Email Injector
