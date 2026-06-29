@@ -1,34 +1,75 @@
 # Agent Context & Architecture
 
-This file provides critical context for AI agents working on this repository in the future. **Read this before modifying the codebase.**
+This file provides critical context for AI agents working on this repository. **Read this before modifying the codebase.**
 
 ## Architecture Overview
-This project is a **Custom Static Site Generator (SSG)** portfolio. It does NOT use complex frameworks like Next.js, nor does it fetch JSON dynamically at runtime via the browser. 
 
-The primary goal of this architecture is to provide the user with a highly convenient editing experience (via JSON) while ensuring **100% SEO optimization** and **Spam Protection**.
+This project is a **Custom Static Site Generator (SSG)** portfolio. It does NOT use complex frameworks like Next.js, nor does it fetch JSON dynamically at runtime in the browser.
+
+The primary goal is a convenient editing experience (via JSON) while ensuring **SEO optimization**, **spam protection**, and **deploying only the built HTML** — not the source data.
 
 ### The Build Process
-1. `src/data.json` contains all user content, including CV, projects, and the obfuscated email address.
-2. `src/template.html` contains the HTML structure with text placeholders (e.g., `{{PROFILE_GREETING}}`).
-3. `build.js` is a native Node.js script (zero dependencies) that reads the JSON, processes logic (like counting projects), replaces the placeholders in the template, and outputs the final HTML.
-4. The output is written to `dist/index.html`.
+
+1. `src/data.json` — all user content (profile, CV, projects, email parts, optional `site` metadata).
+2. `src/template.html` — HTML structure with placeholders (e.g. `{{PROFILE_GREETING}}`, `{{SITE_BRAND}}`).
+3. `build.js` — native Node.js script (zero dependencies) that reads JSON, computes stats, replaces tokens, and writes output.
+4. Output: `dist/index.html` and `dist/.nojekyll`.
 
 ## Critical Rules for Agents
 
-1. **Do NOT edit the root `index.html`:** A root `index.html` should not exist. The final generated file lives in `dist/index.html` and should never be manually edited.
-2. **Do NOT use Client-Side Fetching for Content:** Content must be injected at build time (`build.js`) for SEO reasons. Do not revert to `fetch('data.json')` in the client script.
-3. **Where to Edit Content:** If the user asks to update their CV, add a project, or fix a typo, edit `src/data.json`.
-4. **Where to Edit Layout/Design:** Edit `src/template.html` and then run `npm run build` to test.
-5. **Where to Edit Logic:** If the user wants a new dynamic feature (e.g., calculating a new statistic), modify `build.js` to process the data and inject a new `{{TOKEN}}` into the template.
-6. **Email Obfuscation:** The user's email is split into `user` and `domain` inside `data.json`. `build.js` injects a Javascript event listener into the template that dynamically assembles the `mailto:` link only upon user interaction (hover/click). Do NOT hardcode the email into the HTML to prevent bot spam.
-7. **Deployment:** The project is designed to be deployed by pointing a static hosting service (Coolify, Vercel, Netlify, GitHub Pages) to the `dist/` directory after running `npm run build`.
+1. **Do NOT edit root `index.html`:** It must not exist in the repo. The generated file lives only in `dist/index.html`.
+2. **Do NOT commit build artifacts:** `dist/`, root `index.html`, and `.nojekyll` are listed in `.gitignore`.
+3. **Do NOT use client-side fetching for content:** Content must be injected at build time for SEO. Never revert to `fetch('data.json')`.
+4. **Edit content in** `src/data.json`.
+5. **Edit layout/design in** `src/template.html`, then run `npm run build`.
+6. **Edit build logic in** `build.js` when adding new `{{TOKEN}}` placeholders or computed values.
+7. **Email obfuscation:** Email is split into `user` and `domain` in `data.json`. `build.js` injects JavaScript that assembles the `mailto:` link only on hover/click. Never hardcode the full email in HTML.
+8. **Deployment:** Host only `dist/` after `npm run build`. GitHub Pages uses `.github/workflows/deploy.yml` with `actions/deploy-pages`. Pages source must be **GitHub Actions**, not branch deployment.
+
+## Template Tokens (build.js)
+
+| Token | Source |
+|---|---|
+| `{{PAGE_TITLE}}` | `data.site.pageTitle` (default: `Portfolio`) |
+| `{{SITE_BRAND}}` | `data.site.brand` (default: `USER`) |
+| `{{FOOTER_TEXT}}` | `data.site.footerText` |
+| `{{COPYRIGHT_YEAR}}` | Current year (computed) |
+| `{{STATS_SUMMARY}}` | Computed project counts |
+| `{{PROFILE_*}}` | `data.profile` |
+| `{{SOCIAL_LINKS}}` | Generated from `data.profile.social` |
+| `{{FOOTER_LINKS}}` | Generated from social links |
+| `{{EMAIL_SCRIPT}}` | Obfuscated email handler |
+| `{{TECH_*}}` | `data.techStack` |
+| `{{CV_ITEMS}}` | `data.cv` |
+| `{{PROJECT_SECTIONS}}` | `data.projects` |
+| `{{RADAR_LABELS}}` / `{{RADAR_DATA}}` | Chart.js config |
+
+Use `replaceAll()` for tokens that may appear multiple times in the template.
 
 ## Design System: Neo-Brutalism
 
-The portfolio uses a **Neo-Brutalism** (Neobrutalismus) visual style with:
-- **CSS Variables** defined in `:root` — `--accent` (hot pink #FF6B9D), `--accent-alt` (electric blue #4CC9F0), `--accent-yellow` (#FFD166), `--border` (#000), `--shadow` (#000)
-- **Utility classes**: `.neo-card` (thick border + offset shadow + hover lift), `.neo-btn` (button variant), `.neo-border`, `.neo-shadow`
-- **Dark mode** uses `.dark` class on `<body>` with `--bg-dark`, `--card-bg-dark`, `--border-dark`, `--shadow-dark` variants
-- **No blur/glassmorphism/gradients** — all effects are flat, boxy, and high-contrast
-- Project category colors in `data.json` use **hex values** (not CSS variables) for compatibility with inline styles and `color-mix()`
-- `build.js` uses `replaceAll()` instead of `replace()` for tokens that appear multiple times in the template
+- **CSS Variables** in `:root`:
+  - `--accent` (#E8531D), `--accent-alt` (#4CC9F0), `--accent-yellow` (#FFD166)
+  - `--bg` / `--bg-dark`, `--card-bg` / `--card-bg-dark`
+  - `--text` / `--text-dark`, `--border` / `--border-dark`, `--shadow` / `--shadow-dark`
+- **Utility classes:** `.neo-card`, `.neo-btn`, `.neo-border`, `.neo-shadow`
+- **Theme-aware classes:** `.theme-border-b/t/l`, `.theme-text`, `.themed-category-dot`, `.project-band`, `.img-placeholder`, `.text-muted`
+- **No blur, glassmorphism, or gradients** — flat, boxy, high-contrast
+- Project category colors in `data.json` use **hex values** for inline styles and `color-mix()`
+
+## Dark Mode
+
+- Tailwind is configured with `darkMode: 'class'` (see `tailwind.config` in `template.html`).
+- The `dark` class lives on `<html>`, toggled via `document.documentElement.classList`.
+- Custom CSS selectors use `html.dark` (not `.dark` on `body` alone).
+- Tailwind `dark:` utilities and custom `html.dark` rules must stay in sync.
+- Chart.js radar colors are updated in `initRadar()` / `updateRadar()` based on the current theme.
+
+## Deployment (GitHub Pages)
+
+```yaml
+# .github/workflows/deploy.yml
+npm run build → upload dist/ → actions/deploy-pages
+```
+
+Do **not** commit built HTML to the repo root. The workflow publishes only the `dist/` artifact.
