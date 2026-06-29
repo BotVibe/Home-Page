@@ -96,7 +96,61 @@
             transform: translate(2px, 2px);
             box-shadow: 0 0 0 var(--shadow);
         }
+        .dark .neo-btn:active {
+            box-shadow: 0 0 0 var(--shadow-dark);
+        }
 
+        /* Theme-aware borders (inline var(--border) stays black in dark mode) */
+        .theme-border-b {
+            border-bottom: 3px solid var(--border);
+        }
+        .dark .theme-border-b {
+            border-bottom-color: var(--border-dark);
+        }
+        .theme-border-t {
+            border-top: 3px solid var(--border);
+        }
+        .dark .theme-border-t {
+            border-top-color: var(--border-dark);
+        }
+        .theme-border-l {
+            border-left: 3px solid var(--border);
+        }
+        .dark .theme-border-l {
+            border-left-color: var(--border-dark);
+        }
+
+        .themed-category-dot {
+            border: 2px solid var(--border);
+        }
+        .dark .themed-category-dot {
+            border-color: var(--border-dark);
+        }
+
+        .project-band {
+            border-top: 3px solid var(--band-color);
+            border-bottom: 3px solid var(--band-color);
+            background-color: color-mix(in srgb, var(--band-color) 8%, var(--bg));
+        }
+        .dark .project-band {
+            background-color: color-mix(in srgb, var(--band-color) 20%, var(--bg-dark));
+        }
+
+        .img-placeholder {
+            background-color: #f9fafb;
+            color: #4b5563;
+        }
+        .dark .img-placeholder {
+            background-color: rgba(0, 0, 0, 0.35);
+            color: rgba(255, 251, 235, 0.65);
+        }
+
+        .text-muted {
+            color: rgba(0, 0, 0, 0.65);
+        }
+        .dark .text-muted {
+            color: rgba(255, 251, 235, 0.75);
+        }
         .neo-border {
             border: 3px solid var(--border);
         }
@@ -129,7 +183,7 @@
 
 <body class="antialiased dark">
 
-    <nav class="fixed top-0 w-full z-50 bg-[var(--bg)] dark:bg-[var(--bg-dark)]" style="border-bottom: 3px solid var(--border);">
+    <nav class="fixed top-0 w-full z-50 bg-[var(--bg)] dark:bg-[var(--bg-dark)] theme-border-b">
         <div class="max-w-6xl mx-auto px-6 h-16 flex justify-between items-center">
             <div class="font-black text-xl tracking-widest italic">USER<span class="text-[var(--accent)]">.</span>PROFILE</div>
             <button id="themeToggle"
@@ -165,7 +219,7 @@
         </section>
 
         <section class="px-6 max-w-6xl mx-auto mb-32 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div class="neo-card bg-[var(--card-bg)] dark:bg-[var(--card-bg-dark)] p-8 relative">
+            <div class="neo-card bg-[var(--card-bg)] dark:bg-[var(--card-bg-dark)] text-[var(--text)] dark:text-[var(--text-dark)] p-8 relative">
                 <div class="absolute -top-4 left-6 neo-btn px-3 py-1 bg-[var(--accent-alt)] text-black text-[11px] font-mono font-bold">
                     SKILLS RADAR</div>
                 <div class="chart-container mt-4">
@@ -187,7 +241,7 @@
             <h2 class="text-4xl font-black mb-12 tracking-tighter">EXPERIENCE <span
                     class="text-sm font-mono font-normal text-[var(--accent)]">/ CV</span></h2>
 
-            <div id="cv-timeline" class="ml-3 space-y-12 pb-4" style="border-left: 3px solid var(--border);">
+            <div id="cv-timeline" class="ml-3 space-y-12 pb-4 theme-border-l">
                 {{CV_ITEMS}}
             </div>
         </section>
@@ -203,14 +257,12 @@
 
     </main>
 
-    <footer class="bg-[var(--accent)] py-12 mt-20 text-black text-center" style="border-top: 3px solid var(--border);">
+    <footer class="bg-[var(--accent)] py-12 mt-20 text-black text-center theme-border-t">
         <div class="flex justify-center gap-4 mb-6">
-            <a href="#" class="neo-btn px-4 py-2 bg-[var(--card-bg)] font-mono text-sm font-bold hover:bg-[var(--accent-yellow)] transition-colors">GITHUB</a>
-            <a href="#" class="neo-btn px-4 py-2 bg-[var(--card-bg)] font-mono text-sm font-bold hover:bg-[var(--accent-yellow)] transition-colors">LINKEDIN</a>
-            <a href="#" class="neo-btn px-4 py-2 bg-[var(--card-bg)] font-mono text-sm font-bold hover:bg-[var(--accent-yellow)] transition-colors">EMAIL</a>
+            {{FOOTER_LINKS}}
         </div>
         <p class="text-sm font-bold font-mono tracking-tighter">
-            &copy; 2024 — Built with care &amp; code.
+            &copy; {{COPYRIGHT_YEAR}} — {{FOOTER_TEXT}}
         </p>
     </footer>
 
