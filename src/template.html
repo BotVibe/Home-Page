@@ -1,11 +1,16 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="de" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Software Engineer | Portfolio</title>
     <meta name="description" content="{{PROFILE_ABOUT}}">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        };
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <style>
@@ -36,8 +41,15 @@
             overflow-x: hidden;
         }
 
-        .dark {
+        html.dark body {
             background-color: var(--bg-dark);
+            color: var(--text-dark);
+        }
+
+        .theme-text {
+            color: var(--text);
+        }
+        html.dark .theme-text {
             color: var(--text-dark);
         }
 
@@ -62,7 +74,7 @@
             box-shadow: 5px 5px 0 var(--shadow);
             transition: transform 0.2s, box-shadow 0.2s;
         }
-        .dark .neo-card {
+html.dark .neo-card {
             border-color: var(--border-dark);
             box-shadow: 5px 5px 0 var(--shadow-dark);
         }
@@ -70,7 +82,7 @@
             transform: translate(-2px, -2px);
             box-shadow: 7px 7px 0 var(--shadow);
         }
-        .dark .neo-card:hover {
+html.dark .neo-card:hover {
             box-shadow: 7px 7px 0 var(--shadow-dark);
         }
 
@@ -81,7 +93,7 @@
             font-weight: 800;
             transition: transform 0.15s, box-shadow 0.15s;
         }
-        .dark .neo-btn {
+html.dark .neo-btn {
             border-color: var(--border-dark);
             box-shadow: 4px 4px 0 var(--shadow-dark);
         }
@@ -89,14 +101,14 @@
             transform: translate(-2px, -2px);
             box-shadow: 6px 6px 0 var(--shadow);
         }
-        .dark .neo-btn:hover {
+html.dark .neo-btn:hover {
             box-shadow: 6px 6px 0 var(--shadow-dark);
         }
         .neo-btn:active {
             transform: translate(2px, 2px);
             box-shadow: 0 0 0 var(--shadow);
         }
-        .dark .neo-btn:active {
+html.dark .neo-btn:active {
             box-shadow: 0 0 0 var(--shadow-dark);
         }
 
@@ -104,26 +116,26 @@
         .theme-border-b {
             border-bottom: 3px solid var(--border);
         }
-        .dark .theme-border-b {
+html.dark .theme-border-b {
             border-bottom-color: var(--border-dark);
         }
         .theme-border-t {
             border-top: 3px solid var(--border);
         }
-        .dark .theme-border-t {
+html.dark .theme-border-t {
             border-top-color: var(--border-dark);
         }
         .theme-border-l {
             border-left: 3px solid var(--border);
         }
-        .dark .theme-border-l {
+html.dark .theme-border-l {
             border-left-color: var(--border-dark);
         }
 
         .themed-category-dot {
             border: 2px solid var(--border);
         }
-        .dark .themed-category-dot {
+html.dark .themed-category-dot {
             border-color: var(--border-dark);
         }
 
@@ -132,7 +144,7 @@
             border-bottom: 3px solid var(--band-color);
             background-color: color-mix(in srgb, var(--band-color) 8%, var(--bg));
         }
-        .dark .project-band {
+html.dark .project-band {
             background-color: color-mix(in srgb, var(--band-color) 20%, var(--bg-dark));
         }
 
@@ -140,7 +152,7 @@
             background-color: #f9fafb;
             color: #4b5563;
         }
-        .dark .img-placeholder {
+html.dark .img-placeholder {
             background-color: rgba(0, 0, 0, 0.35);
             color: rgba(255, 251, 235, 0.65);
         }
@@ -148,20 +160,20 @@
         .text-muted {
             color: rgba(0, 0, 0, 0.65);
         }
-        .dark .text-muted {
+html.dark .text-muted {
             color: rgba(255, 251, 235, 0.75);
         }
         .neo-border {
             border: 3px solid var(--border);
         }
-        .dark .neo-border {
+html.dark .neo-border {
             border-color: var(--border-dark);
         }
 
         .neo-shadow {
             box-shadow: 5px 5px 0 var(--shadow);
         }
-        .dark .neo-shadow {
+html.dark .neo-shadow {
             box-shadow: 5px 5px 0 var(--shadow-dark);
         }
 
@@ -175,17 +187,17 @@
             left: -9px;
             top: 6px;
         }
-        .dark .timeline-node {
+html.dark .timeline-node {
             border-color: var(--border-dark);
         }
     </style>
 </head>
 
-<body class="antialiased dark">
+<body class="antialiased">
 
     <nav class="fixed top-0 w-full z-50 bg-[var(--bg)] dark:bg-[var(--bg-dark)] theme-border-b">
         <div class="max-w-6xl mx-auto px-6 h-16 flex justify-between items-center">
-            <div class="font-black text-xl tracking-widest italic">USER<span class="text-[var(--accent)]">.</span>PROFILE</div>
+            <div class="font-black text-xl tracking-widest italic theme-text">{{SITE_BRAND}}<span class="text-[var(--accent)]">.</span>PROFILE</div>
             <button id="themeToggle"
                 class="neo-btn px-4 py-2 bg-[var(--accent-yellow)] text-black font-mono text-xs">
                 <span id="themeLabel">☀ LIGHT MODE</span>
@@ -269,11 +281,11 @@
     <script>
         const themeToggle = document.getElementById('themeToggle');
         const themeLabel = document.getElementById('themeLabel');
-        const body = document.body;
+        const root = document.documentElement;
 
         themeToggle.addEventListener('click', () => {
-            body.classList.toggle('dark');
-            const isDark = body.classList.contains('dark');
+            root.classList.toggle('dark');
+            const isDark = root.classList.contains('dark');
             themeLabel.innerText = isDark ? '☀ LIGHT MODE' : '☾ DARK MODE';
             updateRadar(isDark);
         });
@@ -285,7 +297,7 @@
 
         function initRadar(isDark) {
             const ctx = document.getElementById('radarChart').getContext('2d');
-            const gridColor = isDark ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.15)';
+            const gridColor = isDark ? 'rgba(255, 251, 235, 0.35)' : 'rgba(0, 0, 0, 0.15)';
             const labelColor = isDark ? '#FFFBEB' : '#000000';
 
             radar = new Chart(ctx, {
@@ -294,9 +306,10 @@
                     labels: radarLabels,
                     datasets: [{
                         data: radarData,
-                        backgroundColor: 'rgba(232, 83, 29, 0.25)',
+                        backgroundColor: isDark ? 'rgba(232, 83, 29, 0.35)' : 'rgba(232, 83, 29, 0.25)',
                         borderColor: '#E8531D',
                         pointBackgroundColor: '#E8531D',
+                        pointBorderColor: isDark ? '#FFFBEB' : '#000000',
                         borderWidth: 3
                     }]
                 },
@@ -319,10 +332,12 @@
         function updateRadar(isDark) {
             if (!radar) return;
             const color = isDark ? '#FFFBEB' : '#000000';
-            const grid = isDark ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.15)';
+            const grid = isDark ? 'rgba(255, 251, 235, 0.35)' : 'rgba(0, 0, 0, 0.15)';
             radar.options.scales.r.pointLabels.color = color;
             radar.options.scales.r.grid.color = grid;
             radar.options.scales.r.angleLines.color = grid;
+            radar.data.datasets[0].backgroundColor = isDark ? 'rgba(232, 83, 29, 0.35)' : 'rgba(232, 83, 29, 0.25)';
+            radar.data.datasets[0].pointBorderColor = isDark ? '#FFFBEB' : '#000000';
             radar.update();
         }
 
